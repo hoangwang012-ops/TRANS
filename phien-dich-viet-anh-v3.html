@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="vi" translate="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phiên Dịch Song Phương Việt - Anh</title>
+  <style>
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    body {
+      margin: 0;
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 16px;
+    }
+    .app {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+    h1 {
+      font-size: 1.45rem;
+      margin: 0;
+    }
+    .sub {
+      color: #94a3b8;
+      font-size: 0.9rem;
+      margin-bottom: 14px;
+    }
+    .banner {
+      background: #1e293b;
+      border: 1px solid #475569;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-size: 0.86rem;
+      color: #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .banner-warn {
+      border-color: #f59e0b;
+      background: rgba(245, 158, 11, 0.12);
+      color: #fde68a;
+    }
+    .controls-bar {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: #cbd5e1;
+    }
+    select, input[type="range"] {
+      background: #0f172a;
+      color: #f8fafc;
+      border: 1px solid #475569;
+      border-radius: 8px;
+      padding: 6px 8px;
+      max-width: 220px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    @media (max-width: 680px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: #334155;
+      color: #e2e8f0;
+    }
+    .status {
+      font-size: 0.82rem;
+      color: #38bdf8;
+      min-height: 1.2em;
+      text-align: right;
+    }
+    .box {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 10px 12px;
+      min-height: 64px;
+      font-size: 0.96rem;
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+    .label {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      margin-bottom: 4px;
+    }
+    .result-en {
+      color: #4ade80;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .result-vi {
+      color: #fbbf24;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .btn-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    button:active { transform: scale(0.98); }
+    button:hover { opacity: 0.92; }
+    .btn-mic-vi { background: #2563eb; color: white; flex: 1; }
+    .btn-mic-en { background: #0d9488; color: white; flex: 1; }
+    .btn-listening { background: #dc2626 !important; animation: pulse 1.2s infinite; }
+    .btn-sec { background: #334155; color: #f8fafc; }
+    .btn-guide { background: #7c3aed; color: #ffffff; padding: 8px 14px; font-size: 0.86rem; }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.65; }
+    }
+    .manual-row {
+      display: flex;
+      gap: 6px;
+    }
+    .manual-row input[type="text"] {
+      flex: 1;
+      background: #0f172a;
+      color: #f8fafc;
+      border: 1px solid #475569;
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 0.88rem;
+    }
+    .history {
+      margin-top: 16px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+    .history-item {
+      border-bottom: 1px solid #334155;
+      padding: 8px 0;
+      font-size: 0.9rem;
+    }
+    .history-item:last-child { border-bottom: none; }
+    .note {
+      margin-top: 12px;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+    /* Modal HƯỚNG DẪN */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 23, 0.78);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-overlay.open {
+      display: flex;
+    }
+    .modal-box {
+      background: #1e293b;
+      border: 1px solid #475569;
+      border-radius: 16px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 86vh;
+      overflow-y: auto;
+      padding: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #334155;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+    .modal-header h2 {
+      margin: 0;
+      font-size: 1.15rem;
+      color: #f8fafc;
+    }
+    .guide-list {
+      margin: 0;
+      padding-left: 20px;
+      line-height: 1.65;
+      font-size: 0.92rem;
+      color: #e2e8f0;
+    }
+    .guide-list li {
+      margin-bottom: 10px;
+    }
+    .guide-tip {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      font-size: 0.86rem;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="header-row">
+      <h1>🎙️ Phiên Dịch Song Phương Việt ↔ Anh</h1>
+      <button id="btnOpenGuide" class="btn-guide">📘 HƯỚNG DẪN SỬ DỤNG</button>
+    </div>
+    <div class="sub">Nói tiếng Việt → Máy đọc &amp; hiện tiếng Anh | Người ngoài nói tiếng Anh → Máy đọc &amp; hiện tiếng Việt</div>
+
+    <div id="envBanner" class="banner">
+      <span id="envInfo">Đang kiểm tra trình duyệt...</span>
+      <button id="btnTestAudio" class="btn-sec" style="padding: 6px 10px; font-size: 0.8rem;">🔊 Kiểm tra loa</button>
+    </div>
+
+    <div class="controls-bar">
+      <div class="control-group">
+        <label for="enVoiceSelect">Giọng Anh:</label>
+        <select id="enVoiceSelect"></select>
+      </div>
+      <div class="control-group">
+        <label for="viVoiceSelect">Giọng Việt:</label>
+        <select id="viVoiceSelect"></select>
+      </div>
+      <div class="control-group">
+        <label for="rateRange">Tốc độ: <span id="rateVal">1.0</span>x</label>
+        <input id="rateRange" type="range" min="0.6" max="1.4" step="0.1" value="1.0" />
+      </div>
+      <div class="control-group">
+        <input id="autoListenEnCheckbox" type="checkbox" checked />
+        <label for="autoListenEnCheckbox">Tự động nghe EN sau khi dịch xong</label>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- CHIỀU 1: BẠN NÓI TIẾNG VIỆT -> DỊCH SANG TIẾNG ANH -->
+      <div class="card">
+        <div class="card-header">
+          <span class="badge">BẠN (VI) → MÁY NÓI (EN)</span>
+          <span id="statusVi2En" class="status">Sẵn sàng</span>
+        </div>
+
+        <div>
+          <div class="label">Câu tiếng Việt bạn nói:</div>
+          <div id="heardVi" class="box">—</div>
+        </div>
+
+        <div>
+          <div class="label">Bản dịch tiếng Anh (Máy đọc &amp; hiển thị):</div>
+          <div id="transEn" class="box result-en">—</div>
+        </div>
+
+        <div class="btn-row">
+          <button id="btnVi2En" class="btn-mic-vi">🎤 Nói Tiếng Việt</button>
+          <button id="btnSpeakEn" class="btn-sec">🔊 Đọc lại EN</button>
+        </div>
+
+        <div class="manual-row">
+          <input id="inputViManual" type="text" placeholder="Hoặc gõ câu tiếng Việt để dịch & đọc..." />
+          <button id="btnManualVi2En" class="btn-sec">Dịch EN</button>
+        </div>
+      </div>
+
+      <!-- CHIỀU 2: NGƯỜI NGOÀI NÓI TIẾNG ANH -> DỊCH SANG TIẾNG VIỆT -->
+      <div class="card">
+        <div class="card-header">
+          <span class="badge">NGƯỜI NGOÀI (EN) → MÁY NÓI (VI)</span>
+          <span id="statusEn2Vi" class="status">Sẵn sàng</span>
+        </div>
+
+        <div>
+          <div class="label">Câu tiếng Anh nghe được:</div>
+          <div id="heardEn" class="box">—</div>
+        </div>
+
+        <div>
+          <div class="label">Bản dịch tiếng Việt (Máy đọc &amp; hiển thị):</div>
+          <div id="transVi" class="box result-vi">—</div>
+        </div>
+
+        <div class="btn-row">
+          <button id="btnEn2Vi" class="btn-mic-en">🎧 Nghe Tiếng Anh</button>
+          <button id="btnSpeakVi" class="btn-sec">🔊 Đọc lại VI</button>
+        </div>
+
+        <div class="manual-row">
+          <input id="inputEnManual" type="text" placeholder="Hoặc gõ câu tiếng Anh để dịch & đọc..." />
+          <button id="btnManualEn2Vi" class="btn-sec">Dịch VI</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="history">
+      <div class="card-header" style="margin-bottom: 6px;">
+        <strong>Lịch sử phiên dịch</strong>
+        <button id="btnClearHist" class="btn-sec" style="padding: 6px 10px; font-size: 0.8rem;">Xóa lịch sử</button>
+      </div>
+      <div id="historyList" style="color: #94a3b8; font-size: 0.88rem;">Chưa có câu nào.</div>
+    </div>
+
+    <div class="note">
+      * Bấm nút <strong>📘 HƯỚNG DẪN SỬ DỤNG</strong> ở góc trên bên phải để xem chi tiết cách dùng, cách cấp quyền Microphone trên Edge/Chrome và mẹo giao tiếp hai chiều.
+    </div>
+  </div>
+
+  <!-- HỘP THOẠI HƯỚNG DẪN SỬ DỤNG -->
+  <div id="guideModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="guideTitle">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="guideTitle">📘 HƯỚNG DẪN SỬ DỤNG ỨNG DỤNG PHIÊN DỊCH</h2>
+        <button id="btnCloseGuide" class="btn-sec" style="padding: 6px 12px;">✕ Đóng</button>
+      </div>
+      <ol class="guide-list">
+        <li><strong>Chuẩn bị trước khi nói:</strong> Dùng trình duyệt <strong>Microsoft Edge</strong> hoặc <strong>Google Chrome</strong>, bấm <strong>🔊 Kiểm tra loa</strong> để chắc chắn máy phát tiếng rõ, và bấm <strong>Allow (Cho phép)</strong> khi trình duyệt hỏi quyền truy cập <strong>Microphone</strong>.</li>
+        <li><strong>Chiều 1 — Bạn nói tiếng Việt → Máy dịch &amp; đọc tiếng Anh:</strong> Bấm nút <strong>🎤 Nói Tiếng Việt</strong> (nút chuyển sang màu đỏ nhấp nháy), nói rõ câu tiếng Việt của bạn rồi ngừng lại. Máy sẽ hiện câu tiếng Việt, dịch sang tiếng Anh, hiển thị chữ màu xanh lá và tự động đọc to bằng tiếng Anh.</li>
+        <li><strong>Tự động chuyển sang nghe người đối diện:</strong> Khi ô <strong>Tự động nghe EN sau khi dịch xong</strong> được tích chọn, ngay sau khi máy đọc xong câu tiếng Anh, mục <strong>NGƯỜI NGOÀI (EN) → MÁY NÓI (VI)</strong> sẽ tự bật micro để chờ người đối diện trả lời bằng tiếng Anh (bạn vẫn có thể bấm nút <strong>🎧 Nghe Tiếng Anh</strong> thủ công bất cứ lúc nào).</li>
+        <li><strong>Chiều 2 — Người ngoài nói tiếng Anh → Máy dịch &amp; đọc tiếng Việt:</strong> Khi micro ở khung bên phải đang bật (nút đỏ nhấp nháy), người đối diện nói tiếng Anh. Máy sẽ nhận diện chữ tiếng Anh, dịch sang tiếng Việt (chữ màu vàng) và tự động đọc to tiếng Việt cho bạn nghe.</li>
+        <li><strong>Nghe lại, chỉnh giọng &amp; nhập chữ dự phòng:</strong> Dùng thanh <strong>Giọng Anh / Giọng Việt / Tốc độ</strong> để chọn giọng đọc phù hợp; bấm <strong>🔊 Đọc lại EN</strong> hoặc <strong>🔊 Đọc lại VI</strong> để phát lại; hoặc gõ trực tiếp vào ô nhập bên dưới từng khung rồi nhấn <code>Enter</code> nếu đang ở nơi ồn ào hoặc chưa bật micro.</li>
+      </ol>
+      <div class="guide-tip">
+        <strong>Mẹo khắc phục nếu mở file trực tiếp (<code>file:///</code>) trên máy tính mà micro không bật:</strong><br/>
+        Một số trình duyệt hạn chế quyền Microphone với file cục bộ. Bạn có thể mở thư mục chứa file bằng <strong>VS Code → Go Live (Live Server)</strong>, hoặc mở Terminal/PowerShell tại thư mục chứa file, gõ <code>python -m http.server 8000</code> rồi truy cập <code>http://localhost:8000</code> (hoặc tải file lên trang web <code>https://</code>).
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    const btnOpenGuide = document.getElementById("btnOpenGuide");
+    const btnCloseGuide = document.getElementById("btnCloseGuide");
+    const guideModal = document.getElementById("guideModal");
+
+    const envBanner = document.getElementById("envBanner");
+    const envInfo = document.getElementById("envInfo");
+    const btnTestAudio = document.getElementById("btnTestAudio");
+
+    const btnVi2En = document.getElementById("btnVi2En");
+    const btnEn2Vi = document.getElementById("btnEn2Vi");
+    const btnSpeakEn = document.getElementById("btnSpeakEn");
+    const btnSpeakVi = document.getElementById("btnSpeakVi");
+    const btnClearHist = document.getElementById("btnClearHist");
+
+    const inputViManual = document.getElementById("inputViManual");
+    const btnManualVi2En = document.getElementById("btnManualVi2En");
+    const inputEnManual = document.getElementById("inputEnManual");
+    const btnManualEn2Vi = document.getElementById("btnManualEn2Vi");
+
+    const heardViEl = document.getElementById("heardVi");
+    const transEnEl = document.getElementById("transEn");
+    const heardEnEl = document.getElementById("heardEn");
+    const transViEl = document.getElementById("transVi");
+
+    const statusVi2En = document.getElementById("statusVi2En");
+    const statusEn2Vi = document.getElementById("statusEn2Vi");
+
+    const autoListenEnCheckbox = document.getElementById("autoListenEnCheckbox");
+    const enVoiceSelect = document.getElementById("enVoiceSelect");
+    const viVoiceSelect = document.getElementById("viVoiceSelect");
+    const rateRange = document.getElementById("rateRange");
+    const rateVal = document.getElementById("rateVal");
+    const historyList = document.getElementById("historyList");
+
+    let voices = [];
+    let activeMode = null;
+    let recognition = null;
+    let lastEnglishText = "";
+    let lastVietnameseText = "";
+    let hasHistory = false;
+    let pendingAutoListenEn = false;
+    let autoListenTimer = null;
+
+    btnOpenGuide.addEventListener("click", () => guideModal.classList.add("open"));
+    btnCloseGuide.addEventListener("click", () => guideModal.classList.remove("open"));
+    guideModal.addEventListener("click", (e) => {
+      if (e.target === guideModal) guideModal.classList.remove("open");
+    });
+
+    function updateEnvironmentBanner() {
+      const proto = location.protocol;
+      const hasSR = Boolean(SpeechRecognition);
+      const hasTTS = "speechSynthesis" in window;
+
+      if (proto === "file:" || !hasSR) {
+        envBanner.classList.add("banner-warn");
+        envInfo.textContent = `Giao thức: ${proto} | Nhận diện giọng nói: ${hasSR ? "Có" : "Không"} | Đọc giọng nói: ${hasTTS ? "Có" : "Không"} — Nếu micro không chạy ở file://, hãy mở qua http://localhost hoặc https://`;
+      } else {
+        envInfo.textContent = `Sẵn sàng (${proto}) | Nhận diện giọng nói: Có | Đọc giọng nói: ${hasTTS ? "Có" : "Không"}`;
+      }
+    }
+    updateEnvironmentBanner();
+
+    rateRange.addEventListener("input", () => {
+      rateVal.textContent = Number(rateRange.value).toFixed(1);
+    });
+
+    function loadVoices() {
+      if (!("speechSynthesis" in window)) return;
+      voices = window.speechSynthesis.getVoices() || [];
+      enVoiceSelect.innerHTML = "";
+      viVoiceSelect.innerHTML = "";
+
+      const enVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith("en"));
+      const viVoices = voices.filter(v => v.lang && v.lang.toLowerCase().startsWith("vi"));
+
+      (enVoices.length ? enVoices : voices).forEach((v) => {
+        const opt = document.createElement("option");
+        opt.value = v.name;
+        opt.textContent = `${v.name} (${v.lang})`;
+        enVoiceSelect.appendChild(opt);
+      });
+
+      (viVoices.length ? viVoices : voices).forEach((v) => {
+        const opt = document.createElement("option");
+        opt.value = v.name;
+        opt.textContent = `${v.name} (${v.lang})`;
+        viVoiceSelect.appendChild(opt);
+      });
+    }
+
+    if ("speechSynthesis" in window) {
+      loadVoices();
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    function clearAutoListenTimer() {
+      pendingAutoListenEn = false;
+      if (autoListenTimer) {
+        clearTimeout(autoListenTimer);
+        autoListenTimer = null;
+      }
+    }
+
+    function stopRecognition(keepPendingAuto = false) {
+      if (!keepPendingAuto) clearAutoListenTimer();
+      activeMode = null;
+      btnVi2En.classList.remove("btn-listening");
+      btnEn2Vi.classList.remove("btn-listening");
+      if (recognition) {
+        try { recognition.abort(); } catch (e) {}
+        recognition = null;
+      }
+    }
+
+    function speakText(text, langPrefix, selectEl, onDone) {
+      if (!text || !text.trim() || !("speechSynthesis" in window)) {
+        if (onDone) onDone();
+        return;
+      }
+      if (recognition) {
+        try { recognition.abort(); } catch (e) {}
+        recognition = null;
+      }
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      const chosen = voices.find(v => v.name === selectEl.value)
+        || voices.find(v => v.lang && v.lang.toLowerCase().startsWith(langPrefix));
+      if (chosen) utter.voice = chosen;
+      utter.lang = chosen ? chosen.lang : (langPrefix === "en" ? "en-US" : "vi-VN");
+      utter.rate = parseFloat(rateRange.value) || 1.0;
+      utter.onend = () => { if (onDone) onDone(); };
+      utter.onerror = () => { if (onDone) onDone(); };
+      window.speechSynthesis.speak(utter);
+    }
+
+    async function translateText(text, sourceLang, targetLang) {
+      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${encodeURIComponent(sourceLang)}&tl=${encodeURIComponent(targetLang)}&dt=t&q=${encodeURIComponent(text)}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+      if (!Array.isArray(data) || !Array.isArray(data[0])) {
+        throw new Error("Dữ liệu dịch không hợp lệ");
+      }
+      return data[0].map(part => part[0]).join("").trim();
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, m => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[m]));
+    }
+
+    function addHistory(directionLabel, sourceText, translatedText) {
+      if (!hasHistory) {
+        historyList.innerHTML = "";
+        hasHistory = true;
+      }
+      const item = document.createElement("div");
+      item.className = "history-item";
+      item.innerHTML = `<div><strong>[${directionLabel}]</strong> ${escapeHtml(sourceText)}</div>
+                        <div style="color:#4ade80; margin-top:2px;">→ ${escapeHtml(translatedText)}</div>`;
+      historyList.prepend(item);
+    }
+
+    async function handleSpokenText(mode, spoken) {
+      const statusEl = mode === "vi2en" ? statusVi2En : statusEn2Vi;
+      const sourceBox = mode === "vi2en" ? heardViEl : heardEnEl;
+      const targetBox = mode === "vi2en" ? transEnEl : transViEl;
+
+      sourceBox.textContent = spoken || "—";
+      if (!spoken || spoken === "—") {
+        statusEl.textContent = "Không nghe rõ, bấm lại để thử";
+        return;
+      }
+
+      statusEl.textContent = "Đang dịch...";
+      try {
+        if (mode === "vi2en") {
+          const translated = await translateText(spoken, "vi", "en");
+          lastEnglishText = translated;
+          targetBox.textContent = translated;
+          statusEl.textContent = "Đang đọc tiếng Anh...";
+          addHistory("VI → EN", spoken, translated);
+          const shouldAutoListen = Boolean(autoListenEnCheckbox && autoListenEnCheckbox.checked);
+          pendingAutoListenEn = shouldAutoListen;
+          speakText(translated, "en", enVoiceSelect, () => {
+            if (shouldAutoListen && pendingAutoListenEn && activeMode === null) {
+              pendingAutoListenEn = false;
+              statusEn2Vi.textContent = "Tự động bật Nghe Tiếng Anh...";
+              autoListenTimer = setTimeout(() => {
+                autoListenTimer = null;
+                if (activeMode === null) {
+                  startListening("en2vi", { fromAuto: true });
+                }
+              }, 250);
+            } else {
+              statusEl.textContent = "Hoàn tất";
+            }
+          });
+        } else {
+          const translated = await translateText(spoken, "en", "vi");
+          lastVietnameseText = translated;
+          targetBox.textContent = translated;
+          statusEl.textContent = "Đang đọc tiếng Việt...";
+          addHistory("EN → VI", spoken, translated);
+          speakText(translated, "vi", viVoiceSelect, () => {
+            statusEl.textContent = "Hoàn tất";
+          });
+        }
+      } catch (err) {
+        targetBox.textContent = "Lỗi dịch: " + err.message;
+        statusEl.textContent = "Dịch thất bại";
+      }
+    }
+
+    function startListening(mode, opts = {}) {
+      const fromAuto = Boolean(opts.fromAuto);
+      const statusEl = mode === "vi2en" ? statusVi2En : statusEn2Vi;
+      const btnEl = mode === "vi2en" ? btnVi2En : btnEn2Vi;
+      const sourceBox = mode === "vi2en" ? heardViEl : heardEnEl;
+
+      if (!fromAuto) {
+        clearAutoListenTimer();
+      }
+
+      if (!SpeechRecognition) {
+        statusEl.textContent = "Trình duyệt không hỗ trợ SpeechRecognition";
+        return;
+      }
+
+      if (activeMode === mode) {
+        stopRecognition(false);
+        statusEl.textContent = "Đã dừng";
+        return;
+      }
+
+      stopRecognition(fromAuto);
+      if (!fromAuto && "speechSynthesis" in window) window.speechSynthesis.cancel();
+      activeMode = mode;
+
+      const rec = new SpeechRecognition();
+      recognition = rec;
+      rec.lang = mode === "vi2en" ? "vi-VN" : "en-US";
+      rec.interimResults = true;
+      rec.continuous = false;
+      rec.maxAlternatives = 1;
+
+      btnEl.classList.add("btn-listening");
+      statusEl.textContent = "Đang khởi động micro...";
+
+      let finalTranscript = "";
+
+      rec.onstart = () => {
+        statusEl.textContent = mode === "vi2en" ? "Đang nghe tiếng Việt..." : "Đang nghe tiếng Anh...";
+      };
+
+      rec.onresult = (event) => {
+        let interim = "";
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript;
+          if (event.results[i].isFinal) finalTranscript += transcript;
+          else interim += transcript;
+        }
+        sourceBox.textContent = (finalTranscript + interim).trim() || "—";
+      };
+
+      rec.onerror = (event) => {
+        const errCode = event.error || "không xác định";
+        if (errCode === "not-allowed") {
+          statusEl.textContent = "Bị chặn micro (hãy mở qua http://localhost hoặc cho phép Mic)";
+        } else if (errCode === "network") {
+          statusEl.textContent = "Lỗi mạng nhận diện giọng nói (network)";
+        } else {
+          statusEl.textContent = "Lỗi micro: " + errCode;
+        }
+        stopRecognition();
+      };
+
+      rec.onend = () => {
+        const spoken = finalTranscript.trim() || sourceBox.textContent.trim();
+        stopRecognition();
+        handleSpokenText(mode, spoken);
+      };
+
+      try {
+        rec.start();
+      } catch (e) {
+        statusEl.textContent = "Không thể bật micro: " + e.message;
+        stopRecognition();
+      }
+    }
+
+    btnVi2En.addEventListener("click", () => startListening("vi2en"));
+    btnEn2Vi.addEventListener("click", () => startListening("en2vi"));
+
+    btnSpeakEn.addEventListener("click", () => {
+      const txt = lastEnglishText || transEnEl.textContent.trim();
+      if (txt && txt !== "—") speakText(txt, "en", enVoiceSelect);
+    });
+
+    btnSpeakVi.addEventListener("click", () => {
+      const txt = lastVietnameseText || transViEl.textContent.trim();
+      if (txt && txt !== "—") speakText(txt, "vi", viVoiceSelect);
+    });
+
+    btnManualVi2En.addEventListener("click", () => {
+      const txt = inputViManual.value.trim();
+      if (txt) handleSpokenText("vi2en", txt);
+    });
+    inputViManual.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") btnManualVi2En.click();
+    });
+
+    btnManualEn2Vi.addEventListener("click", () => {
+      const txt = inputEnManual.value.trim();
+      if (txt) handleSpokenText("en2vi", txt);
+    });
+    inputEnManual.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") btnManualEn2Vi.click();
+    });
+
+    btnTestAudio.addEventListener("click", () => {
+      speakText("Hello, xin chào. Loa đang hoạt động bình thường.", "en", enVoiceSelect);
+    });
+
+    btnClearHist.addEventListener("click", () => {
+      historyList.innerHTML = "Chưa có câu nào.";
+      hasHistory = false;
+    });
+  </script>
+</body>
+</html>
